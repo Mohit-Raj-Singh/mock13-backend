@@ -26,5 +26,21 @@ bookRouter.get("/", async (req, res) => {
     }
 });
 
+bookRouter.delete("/delete/:id", async (req, res) => {
+    try {
+        const id = req.params.id;
+        const deleted = await bookModel.findByIdAndDelete(id);
+        if (deleted) {
+            res.send({ msg: "Appoinment Deleted" });
+        }
+        else {
+            res.send({ msg: "Invaild Data" })
+        }
+    }
+    catch (err) {
+        res.send(err.message);
+    }
+})
+
 
 module.exports = { bookRouter };
